@@ -4,13 +4,15 @@ import styled from '@emotion/styled'
 const Heading = styled.h1`
   color:red;
 `;
-export default function Nosotros() {
+const Buscar = ()=> {
   return (
     <div>
       <Layout>
-        <Heading>Nosotros</Heading>
+        <Heading>Buscar</Heading>
 
       </Layout>
     </div>
   )
 }
+
+export default Buscar

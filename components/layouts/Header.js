@@ -72,12 +72,12 @@ const Header = () => {
                     ):
                     (
                         <>
-                        <Link href="/">
+                        <Link href="/login">
                             <Boton
                                 bgColor="true"
                             >Login</Boton>
                         </Link>
-                        <Link href="/">
+                        <Link href="/crear-cuenta">
                             <Boton>Crear cuenta</Boton>
                         </Link>
                         </>
