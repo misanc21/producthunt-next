@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import Layout from '../components/layouts/Layout'
 import React, {useState} from 'react'
+import firebase from '../firebase'
 
 import {Formulario, Campo, Inputsubmit, Error} from '../components/ui/Formulario'
 import {css, jsx} from '@emotion/core'
+import Router from 'next/router'
 
 import useValidacion from '../hooks/useValidacion'
 import validarCrearCuenta from '../validacion/validarCrearcuenta'
@@ -14,9 +16,17 @@ const CrearCuenta = ()=> {
     email:'',
     password:''
   })
+
+  const [error, setError] = useState(false)
   
-  const crearCuentafunc = () => {
-    console.log('creando cuenta')
+  const crearCuentafunc = async () => {
+    try {
+      await firebase.registrar(nombre, email, password)
+      Router.push('/')
+    } catch (error) {
+      console.error('hubo un error al crear el usuario', error)
+      setError(error.message)
+    }
   }
 
   const {
@@ -25,7 +35,6 @@ const CrearCuenta = ()=> {
     submitForm,
     handleSubmit,
     handleChange,
-    handleBlur
   } = useValidacion(stateInicial, validarCrearCuenta, crearCuentafunc )
 
   const {nombre, email, password} = valores
@@ -53,7 +62,6 @@ const CrearCuenta = ()=> {
                 name="nombre"
                 value={nombre}
                 onChange= {handleChange}
-                onBlur={handleBlur}
               />
             </Campo>
             {errores.nombre && <Error>{errores.nombre}</Error>}
@@ -66,7 +74,6 @@ const CrearCuenta = ()=> {
                 name="email"
                 value={email}
                 onChange= {handleChange}
-                onBlur={handleBlur}
               />
             </Campo>
             {errores.email && <Error>{errores.email}</Error>}
@@ -79,7 +86,6 @@ const CrearCuenta = ()=> {
                 name="password"
                 value={password}
                 onChange= {handleChange}
-                onBlur={handleBlur}
               />
             </Campo>
             {errores.password && <Error>{errores.password}</Error>}
@@ -87,6 +93,7 @@ const CrearCuenta = ()=> {
               type="submit"
               value="crear cuenta"
             />
+            {error && <Error>{error}</Error> }
           </Formulario>
         </>
 
