@@ -1,10 +1,34 @@
 /** @jsx jsx */
 import Layout from '../components/layouts/Layout'
+import React, {useState} from 'react'
 
 import {Formulario, Campo, Inputsubmit} from '../components/ui/Formulario'
 import {css, jsx} from '@emotion/core'
 
+import useValidacion from '../hooks/useValidacion'
+import validarCrearCuenta from '../validacion/validarCrearcuenta'
+
 const CrearCuenta = ()=> {
+  const [stateInicial, setStateInicial] = useState({
+    nombre:'',
+    email:'',
+    password:''
+  })
+  
+  const crearCuentafunc = () => {
+    console.log('creando cuenta')
+  }
+
+  const {
+    valores,
+    errores,
+    submitForm,
+    handleSubmit,
+    handleChange
+  } = useValidacion(stateInicial, validarCrearCuenta, crearCuentafunc )
+
+  const {nombre, email, password} = valores
+
   return (
     <div>
       <Layout>
@@ -15,7 +39,10 @@ const CrearCuenta = ()=> {
               margin-top: 5rem;
             `}
           >Crear cuenta</h2>
-          <Formulario>
+          <Formulario
+            onSubmit={handleSubmit}
+            noValidate
+          >
             <Campo>
               <label htmlFor="nombre">Nombre</label>
               <input 
@@ -23,6 +50,8 @@ const CrearCuenta = ()=> {
                 id="nombre"
                 placeholder="Tu nombre"
                 name="nombre"
+                value={nombre}
+                onChange= {handleChange}
               />
             </Campo>
             <Campo>
@@ -32,6 +61,8 @@ const CrearCuenta = ()=> {
                 id="email"
                 placeholder="Tu email"
                 name="email"
+                value={email}
+                onChange= {handleChange}
               />
             </Campo>
             <Campo>
@@ -41,6 +72,8 @@ const CrearCuenta = ()=> {
                 id="password"
                 placeholder="Tu password"
                 name="password"
+                value={password}
+                onChange= {handleChange}
               />
             </Campo>
             <Inputsubmit
