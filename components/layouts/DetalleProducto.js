@@ -4,6 +4,37 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import {es} from 'date-fns/locale'
 import Link from 'next/link'
 
+const DestalleProducto = ({producto}) => {
+    const {id, comentarios, creado, descripcion, empresa, nombre, url, imagen, votos} = producto
+    return (
+        <Producto>
+            <DescripcionProducto>
+                <div>
+                    <Img src={imagen}/>
+                </div>
+                <div>
+                    <Link href="/productos/[id]" as={`/productos/${id}`}>
+                        <Titulo>{nombre}</Titulo>
+                    </Link>
+                    <TextoDescripcion>{descripcion}</TextoDescripcion>
+                    <Comentarios>
+                        <div>
+                            <img src="/static/img/comentario.png"/>
+                            <p>{comentarios.length} comentarios</p>
+                        </div>
+                    </Comentarios>
+                    <p>Publicado {formatDistanceToNow(new Date(creado), {locale: es})}</p>
+                </div>
+            </DescripcionProducto>
+            <Votos>
+                <div> &#9650;</div>
+                <p>{votos}votos</p>
+            </Votos>
+        </Producto>
+      );
+}
+
+
 const Img = styled.img`
     width: 200px;
 `
@@ -21,6 +52,9 @@ const DescripcionProducto = styled.div`
     display: grid;
     grid-template-columns: 1fr 3fr;
     column-gap: 2rem;
+    @media(max-width:840px){
+        display: block;
+    }
 `
 
 const Comentarios = styled.div `
@@ -83,36 +117,5 @@ const TextoDescripcion = styled.p`
     margin: 0;
     color: #888;
 `
-
-
-const DestalleProducto = ({producto}) => {
-    const {id, comentarios, creado, descripcion, empresa, nombre, url, imagen, votos} = producto
-    return (
-        <Producto>
-            <DescripcionProducto>
-                <div>
-                    <Img src={imagen}/>
-                </div>
-                <div>
-                    <Link href="/productos/[id]" as={`/productos/${id}`}>
-                        <Titulo>{nombre}</Titulo>
-                    </Link>
-                    <TextoDescripcion>{descripcion}</TextoDescripcion>
-                    <Comentarios>
-                        <div>
-                            <img src="/static/img/comentario.png"/>
-                            <p>{comentarios.length} comentarios</p>
-                        </div>
-                    </Comentarios>
-                    <p>Publicado {formatDistanceToNow(new Date(creado), {locale: es})}</p>
-                </div>
-            </DescripcionProducto>
-            <Votos>
-                <div> &#9650;</div>
-                <p>{votos}votos</p>
-            </Votos>
-        </Producto>
-      );
-}
  
 export default DestalleProducto;
