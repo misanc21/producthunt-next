@@ -9,9 +9,7 @@ const DestalleProducto = ({producto}) => {
     return (
         <Producto>
             <DescripcionProducto>
-                <div>
                     <Img src={imagen}/>
-                </div>
                 <div>
                     <Link href="/productos/[id]" as={`/productos/${id}`}>
                         <Titulo>{nombre}</Titulo>
@@ -22,21 +20,22 @@ const DestalleProducto = ({producto}) => {
                             <img src="/static/img/comentario.png"/>
                             <p>{comentarios.length} comentarios</p>
                         </div>
+                        <Votos>
+                            <div> &#9650;</div>
+                            <p>{votos}votos</p>
+                        </Votos>
                     </Comentarios>
                     <p>Publicado {formatDistanceToNow(new Date(creado), {locale: es})}</p>
                 </div>
             </DescripcionProducto>
-            <Votos>
-                <div> &#9650;</div>
-                <p>{votos}votos</p>
-            </Votos>
         </Producto>
       );
 }
 
 
 const Img = styled.img`
-    width: 200px;
+    width: 300px;
+    margin-right: 4rem;
 `
 
 const Producto = styled.li`
@@ -49,10 +48,9 @@ const Producto = styled.li`
 
 const DescripcionProducto = styled.div`
     flex: 0 1 600px;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    column-gap: 2rem;
-    @media(max-width:840px){
+    display: flex;
+    justify-content: space-between;
+    @media(max-width:640px){
         display: block;
     }
 `
@@ -65,7 +63,6 @@ const Comentarios = styled.div `
     div{
         display: flex;
         align-items: center;
-        border: 1px solid #e1e1e1;
         padding: .3rem 1rem;
         margin-right: 2rem;
     }
@@ -89,7 +86,6 @@ const Comentarios = styled.div `
 const Votos = styled.div`
     flex: 0 0 auto;
     text-align: center;
-    border: 1px solid #e1e1e1;
     padding: 1rem 3rem;
 
     div {
@@ -100,6 +96,14 @@ const Votos = styled.div`
         margin: 0;
         font-size: 2rem;
         font-weight:700;
+    }
+    @media(max-width:700px){
+        margin-left: 1rem;
+        width: 100px;
+
+        p {
+            font-size: 1.5rem;
+        }
     }
 `
 const Titulo = styled.a`

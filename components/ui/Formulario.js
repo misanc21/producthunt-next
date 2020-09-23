@@ -35,7 +35,11 @@ export const Campo = styled.div `
     }
 
     @media(max-width: 700px){
-        width: 380px;
+        width: 350px;
+
+        label {
+            flex: 0 0 100px;
+        }
     }
 `
 
