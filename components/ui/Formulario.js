@@ -4,6 +4,7 @@ export const Formulario = styled.form `
     max-width: 600px;
     width: 95%;
     margin: 5rem auto 0 auto;
+    padding: 1rem 3rem;
 
     fieldset {
         margin: 2rem 0;
@@ -26,10 +27,15 @@ export const Campo = styled.div `
     input, textarea {
         flex: 1;
         padding: 1rem;
+        border: 1px solid #cacaca;
     }
 
     textarea {
         height: 100px
+    }
+
+    @media(max-width: 700px){
+        width: 380px;
     }
 `
 

@@ -131,9 +131,17 @@ const NuevoProducto = () => {
                   />
                 </Campo>
                 {errores.empresa && <Error>{errores.empresa}</Error>}
-                <Campo>
+                <Campo
+                  css={css`
+                      @media(max-width: 700px){
+                        display:block;
+                        text-align:center;
+                      }
+                   `}
+                >
                   <label htmlFor="imagen">Imagen</label>
                   <FileUploader
+                    css={css`border: none!important;`}
                     accept="image/*"
                     id="imagen"
                     name="imagen"
